@@ -15,7 +15,6 @@
     <script type="text/babel">
       const { useState, useEffect } = React;
       
-      // Lucide React icons as inline SVG components
       const AlertCircle = ({ className }) => (
         <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <circle cx="12" cy="12" r="10" />
@@ -61,182 +60,182 @@
           {
             id: 1,
             type: "mcq",
-            question: "Adsorption vs Absorption (L4): Which observation most strongly confirms adsorption rather than absorption in a hydrometallurgical system?",
+            question: "Which statement best describes adsorption in hydrometallurgy?",
             options: [
-              "Uniform solute concentration throughout the solid",
-              "Increased uptake with increasing solid volume",
-              "Uptake proportional to exposed surface area",
-              "Constant uptake rate with time",
+              "Species attach mainly on particle surfaces",
+              "Species dissolve completely into the solid",
+              "Species diffuse uniformly through solids",
+              "Species react only inside the bulk",
             ],
-            correctAnswer: "Uptake proportional to exposed surface area",
+            correctAnswer: "Species attach mainly on particle surfaces",
           },
           {
             id: 2,
             type: "mcq",
-            question: "Surface Forces (L4): Adsorption occurs primarily because surface atoms of solids:",
+            question: "In adsorption terminology, the substance being held on the surface is the:",
             options: [
-              "Are electrically neutral",
-              "Have saturated bonds",
-              "Experience unbalanced residual forces",
-              "Undergo bulk diffusion",
+              "Adsorbent",
+              "Adsorbate",
+              "Absorbent",
+              "Solvent",
             ],
-            correctAnswer: "Experience unbalanced residual forces",
+            correctAnswer: "Adsorbate",
           },
           {
             id: 3,
             type: "mcq",
-            question: "Physisorption Behavior (L4): Which condition would most likely decrease physisorption capacity?",
+            question: "Adsorption mainly occurs because of:",
             options: [
-              "Increasing surface area",
-              "Decreasing temperature",
-              "Increasing pressure",
-              "Increasing temperature",
+              "Balanced internal forces in bulk",
+              "Residual forces at surfaces",
+              "Neutral forces in solution",
+              "Constant pressure gradients",
             ],
-            correctAnswer: "Increasing temperature",
+            correctAnswer: "Residual forces at surfaces",
           },
           {
             id: 4,
             type: "mcq",
-            question: "Freundlich Isotherm (L5): Which system best fits the Freundlich isotherm?",
+            question: "Compared with absorption, adsorption is primarily a:",
             options: [
-              "Homogeneous surface with monolayer coverage",
-              "High-pressure gas adsorption with saturation",
-              "Heterogeneous surface with non-uniform energies",
-              "Chemisorption involving activated complexes",
+              "Bulk interaction phenomenon",
+              "Surface interaction phenomenon",
+              "Gas phase reaction",
+              "Crystal lattice reaction",
             ],
-            correctAnswer: "Heterogeneous surface with non-uniform energies",
+            correctAnswer: "Surface interaction phenomenon",
           },
           {
             id: 5,
             type: "mcq",
-            question: "Freundlich Limitation (L5): A major limitation of the Freundlich isotherm is that it:",
+            question: "Physical adsorption is mainly caused by:",
             options: [
-              "Assumes monolayer adsorption",
-              "Predicts adsorption saturation at high concentration",
-              "Is invalid at very low concentrations",
-              "Does not predict a maximum adsorption capacity",
+              "Covalent bonding forces",
+              "Ionic lattice bonding",
+              "Van der Waals forces",
+              "Metallic bonding",
             ],
-            correctAnswer: "Does not predict a maximum adsorption capacity",
+            correctAnswer: "Van der Waals forces",
           },
           {
             id: 6,
             type: "mcq",
-            question: "Langmuir Assumption (L4): Which assumption is unique to Langmuir adsorption?",
+            question: "Which trend generally reduces physisorption?",
             options: [
-              "Multilayer adsorption",
-              "Uniform adsorption sites",
-              "Adsorbate–adsorbate interaction",
-              "Pore diffusion control",
+              "Decreasing pressure",
+              "Increasing temperature",
+              "Increasing surface area",
+              "Decreasing agitation",
             ],
-            correctAnswer: "Uniform adsorption sites",
+            correctAnswer: "Increasing temperature",
           },
           {
             id: 7,
             type: "mcq",
-            question: "Langmuir Failure (L5): Langmuir isotherm would be least applicable when:",
+            question: "Formation of multiple adsorbate layers is most associated with:",
             options: [
-              "Adsorption is monolayer",
-              "Adsorption sites are identical",
-              "Surface is energetically heterogeneous",
-              "Adsorption reaches equilibrium",
+              "Chemical adsorption",
+              "Physical adsorption",
+              "Ion exchange",
+              "Electrolysis",
             ],
-            correctAnswer: "Surface is energetically heterogeneous",
+            correctAnswer: "Physical adsorption",
           },
           {
             id: 8,
             type: "mcq",
-            question: "BET Isotherm (L4): The BET isotherm is mainly used to determine:",
+            question: "Adsorption isotherms relate adsorption amount mainly to:",
             options: [
-              "Heat of adsorption",
-              "Monolayer capacity only",
-              "Multilayer adsorption behavior",
-              "Adsorption kinetics",
+              "Temperature and viscosity",
+              "Pressure or concentration",
+              "Particle hardness only",
+              "Surface color",
             ],
-            correctAnswer: "Multilayer adsorption behavior",
+            correctAnswer: "Pressure or concentration",
           },
           {
             id: 9,
             type: "mcq",
-            question: "BET Application (L5): BET analysis is most appropriate when studying:",
+            question: "Which material is commonly used for gold adsorption in hydrometallurgy?",
             options: [
-              "Gold cyanide adsorption in solution",
-              "Gas adsorption for surface area measurement",
-              "Chemisorption on metal oxides",
-              "Ion exchange resins",
+              "Silica gel",
+              "Activated carbon",
+              "Alumina clay",
+              "Quartz sand",
             ],
-            correctAnswer: "Gas adsorption for surface area measurement",
+            correctAnswer: "Activated carbon",
           },
           {
             id: 10,
             type: "mcq",
-            question: "Activated Carbon Efficiency (L4): Why do micropores dominate adsorption in activated carbon?",
+            question: "Which process uses carbon mixed directly with slurry pulp?",
             options: [
-              "They enhance mechanical strength",
-              "They provide maximum surface area",
-              "They improve particle separation",
-              "They increase bulk density",
+              "Carbon-in-Pulp",
+              "Carbon-in-Columns",
+              "Carbon-in-Gas",
+              "Carbon-in-Metal",
             ],
-            correctAnswer: "They provide maximum surface area",
+            correctAnswer: "Carbon-in-Pulp",
           },
           {
             id: 11,
             type: "mcq",
-            question: "Pore Size & Gold Adsorption (L5): Gold cyanide complexes are best adsorbed in activated carbon mainly because:",
+            question: "Ion exchange is fundamentally a:",
             options: [
-              "They chemically react with carbon",
-              "Their size matches micropore dimensions",
-              "Carbon dissolves in cyanide",
-              "Gold precipitates on carbon",
+              "Heat transfer process",
+              "Mass transfer process",
+              "Phase crystallization",
+              "Mechanical separation",
             ],
-            correctAnswer: "Their size matches micropore dimensions",
+            correctAnswer: "Mass transfer process",
           },
           {
             id: 12,
             type: "mcq",
-            question: "Carbon Surface Chemistry (L5): Which carbon property most directly affects gold adsorption selectivity?",
+            question: "Ion exchange occurs mainly between:",
             options: [
-              "Graphite crystallite size",
-              "External particle diameter",
-              "Surface functional groups",
-              "Carbon ash content only",
+              "Two solid metals",
+              "Resin and aqueous solution",
+              "Gas and catalyst",
+              "Slag and matte",
             ],
-            correctAnswer: "Surface functional groups",
+            correctAnswer: "Resin and aqueous solution",
           },
           {
             id: 13,
             type: "mcq",
-            question: "CIP vs CIL (L4): Which operational difference best distinguishes CIL from CIP?",
+            question: "The ions fixed within the exchanger structure are called:",
             options: [
-              "Carbon regeneration method",
-              "Adsorption before leaching",
-              "Adsorption during leaching",
-              "Use of oxygen",
+              "Counter ions",
+              "Mobile ions",
+              "Fixed ions",
+              "Neutral ions",
             ],
-            correctAnswer: "Adsorption during leaching",
+            correctAnswer: "Fixed ions",
           },
           {
             id: 14,
             type: "mcq",
-            question: "Adsorption Kinetics (L5): A rapid initial gold uptake followed by slower adsorption suggests control by:",
+            question: "An anion exchanger typically:",
             options: [
-              "Chemical reaction",
-              "Film diffusion then pore diffusion",
-              "Bulk absorption",
-              "Carbon attrition",
+              "Exchanges positive ions",
+              "Exchanges negative ions",
+              "Exchanges neutral atoms",
+              "Exchanges metal grains",
             ],
-            correctAnswer: "Film diffusion then pore diffusion",
+            correctAnswer: "Exchanges negative ions",
           },
           {
             id: 15,
             type: "mcq",
-            question: "Carbon Selection (L5): Which property is most critical to prevent gold losses in a CIP circuit?",
+            question: "Natural ion-exchange materials commonly include:",
             options: [
-              "High ash content",
-              "Low hardness",
-              "Resistance to attrition",
-              "Large macropore volume",
+              "Aluminosilicates",
+              "Metallic carbides",
+              "Pure graphite",
+              "Titanium oxides",
             ],
-            correctAnswer: "Resistance to attrition",
+            correctAnswer: "Aluminosilicates",
           },
         ];
 
@@ -266,10 +265,7 @@
 
             return () => {
               document.removeEventListener("contextmenu", handleContextMenu);
-              document.removeEventListener(
-                "visibilitychange",
-                handleVisibilityChange
-              );
+              document.removeEventListener("visibilitychange", handleVisibilityChange);
               document.removeEventListener("copy", handleCopy);
               document.removeEventListener("cut", handleCopy);
               document.removeEventListener("paste", handleCopy);
@@ -495,49 +491,32 @@
                     <>
                       <div className="mb-4">
                         <p className="text-lg font-semibold text-gray-700">
-                          Metallurgical Engineering — Adsorption, Isotherms &amp; Activated Carbon Quiz
+                          Metallurgical Engineering — Adsorption &amp; Ion Exchange Quiz
                         </p>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <div className="bg-blue-50 rounded-lg p-4">
-                          <p className="text-sm text-blue-600 font-semibold mb-1">
-                            Total Submissions
-                          </p>
-                          <p className="text-3xl font-bold text-blue-700">
-                            {results.length}
-                          </p>
+                          <p className="text-sm text-blue-600 font-semibold mb-1">Total Submissions</p>
+                          <p className="text-3xl font-bold text-blue-700">{results.length}</p>
                         </div>
                         <div className="bg-green-50 rounded-lg p-4">
-                          <p className="text-sm text-green-600 font-semibold mb-1">
-                            Highest Score
-                          </p>
-                          <p className="text-3xl font-bold text-green-700">
-                            {stats.highest}/15
-                          </p>
+                          <p className="text-sm text-green-600 font-semibold mb-1">Highest Score</p>
+                          <p className="text-3xl font-bold text-green-700">{stats.highest}/15</p>
                         </div>
                         <div className="bg-yellow-50 rounded-lg p-4">
-                          <p className="text-sm text-yellow-600 font-semibold mb-1">
-                            Average Score
-                          </p>
-                          <p className="text-3xl font-bold text-yellow-700">
-                            {stats.average}/15
-                          </p>
+                          <p className="text-sm text-yellow-600 font-semibold mb-1">Average Score</p>
+                          <p className="text-3xl font-bold text-yellow-700">{stats.average}/15</p>
                         </div>
                         <div className="bg-red-50 rounded-lg p-4">
-                          <p className="text-sm text-red-600 font-semibold mb-1">
-                            Lowest Score
-                          </p>
-                          <p className="text-3xl font-bold text-red-700">
-                            {stats.lowest}/15
-                          </p>
+                          <p className="text-sm text-red-600 font-semibold mb-1">Lowest Score</p>
+                          <p className="text-3xl font-bold text-red-700">{stats.lowest}/15</p>
                         </div>
                       </div>
 
                       <div className="mb-4">
                         <p className="text-xs text-gray-500">
-                          Data synced with Google Sheets (Sheet1) | Each tab switch = -0.5
-                          points penalty
+                          Data synced with Google Sheets (Sheet1) | Each tab switch = -0.5 points penalty
                         </p>
                       </div>
 
@@ -606,7 +585,7 @@
                       METE 351 Quiz
                     </h1>
                     <p className="text-gray-600">Metallurgical Engineering</p>
-                    <p className="text-sm text-gray-500 mt-1">Adsorption, Isotherms &amp; Activated Carbon</p>
+                    <p className="text-sm text-gray-500 mt-1">Adsorption &amp; Ion Exchange</p>
                   </div>
 
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
@@ -708,8 +687,7 @@
                     <p className="text-gray-600 mb-6">Thank you, {studentName}</p>
                     <div className="bg-blue-50 rounded-lg p-6 mb-6">
                       <p className="text-gray-700 text-lg">
-                        Your responses have been recorded and submitted to your
-                        instructor.
+                        Your responses have been recorded and submitted to your instructor.
                       </p>
                     </div>
                     <p className="text-sm text-gray-500">
@@ -754,21 +732,16 @@
                   <div className="flex items-center space-x-3">
                     {tabSwitches > 0 && (
                       <span className="text-sm text-red-600 font-semibold">
-                        ⚠️ Switches: {tabSwitches} (-
-                        {(tabSwitches * TAB_SWITCH_PENALTY).toFixed(1)})
+                        ⚠️ Switches: {tabSwitches} (-{(tabSwitches * TAB_SWITCH_PENALTY).toFixed(1)})
                       </span>
                     )}
                     <div className="flex items-center space-x-2">
                       <Timer
-                        className={`h-5 w-5 ${
-                          questionTimeLeft <= 5 ? "text-red-600" : "text-indigo-600"
-                        }`}
+                        className={`h-5 w-5 ${questionTimeLeft <= 5 ? "text-red-600" : "text-indigo-600"}`}
                       />
                       <span
                         className={`font-mono font-bold text-xl ${
-                          questionTimeLeft <= 5
-                            ? "text-red-600 animate-pulse"
-                            : "text-gray-700"
+                          questionTimeLeft <= 5 ? "text-red-600 animate-pulse" : "text-gray-700"
                         }`}
                       >
                         {questionTimeLeft}s
@@ -778,9 +751,7 @@
                 </div>
 
                 <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>
-                    Question {currentQuestion + 1} of {questions.length}
-                  </span>
+                  <span>Question {currentQuestion + 1} of {questions.length}</span>
                 </div>
 
                 <div className="w-full bg-gray-200 rounded-full h-2">
@@ -807,9 +778,7 @@
                         name={`question-${question.id}`}
                         value={option}
                         checked={answers[question.id] === option}
-                        onChange={(e) =>
-                          handleAnswerChange(question.id, e.target.value)
-                        }
+                        onChange={(e) => handleAnswerChange(question.id, e.target.value)}
                         className="mt-1 mr-3 h-4 w-4 text-indigo-600 flex-shrink-0"
                       />
                       <span className="text-gray-700">{option}</span>
@@ -826,9 +795,7 @@
                         : "bg-indigo-600 hover:bg-indigo-700"
                     } text-white`}
                   >
-                    {currentQuestion === questions.length - 1
-                      ? "Submit Quiz"
-                      : "Next Question"}
+                    {currentQuestion === questions.length - 1 ? "Submit Quiz" : "Next Question"}
                   </button>
                 </div>
               </div>
