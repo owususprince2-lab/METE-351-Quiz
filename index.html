@@ -1,172 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>METE 451 Quiz</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>METE 451 Quiz</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+      const { useState, useEffect } = React;
 
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+      const AlertCircle = ({ className }) => (
+        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+      );
 
-<body>
-<div id="root"></div>
+      const Lock = ({ className }) => (
+        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      );
 
-<script type="text/babel">
-const { useState, useEffect } = React;
+      const CheckCircle = ({ className }) => (
+        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+      );
 
-const QuizApp = () => {
+      const Timer = ({ className }) => (
+        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      );
 
-  const [view, setView] = useState("start");
-  const [studentName, setStudentName] = useState("");
-  const [indexNumber, setIndexNumber] = useState("");
-  const [groupNumber, setGroupNumber] = useState("");
+      const QuizApp = () => {
+        const [view, setView] = useState("start");
+        const [studentName, setStudentName] = useState("");
+        const [indexNumber, setIndexNumber] = useState("");
+        const [groupNumber, setGroupNumber] = useState("");
+        const [currentQuestion, setCurrentQuestion] = useState(0);
+        const [answers, setAnswers] = useState({});
+        const [questionTimeLeft, setQuestionTimeLeft] = useState(20);
+        const [tabSwitches, setTabSwitches] = useState(0);
+        const [quizSubmitted, setQuizSubmitted] = useState(false);
+        const [adminPassword, setAdminPassword] = useState("");
+        const [showAdminLogin, setShowAdminLogin] = useState(false);
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [questionTimeLeft, setQuestionTimeLeft] = useState(30);
+        const questions = [
+          { id:1, question:"A supersaturated solution begins forming clusters, but most dissolve before stabilizing. This indicates that:", options:["Most clusters remain below critical radius and redissolve","Most clusters exceed critical radius but lack stability","Supersaturation is insufficient to initiate nucleation","Crystal growth dominates before nucleation stabilizes"], correctAnswer:"Most clusters remain below critical radius and redissolve"},
+          { id:2, question:"A system shows increasing nucleation rate but decreasing crystal size. This is most likely due to:", options:["Slight decrease in supersaturation reducing growth rate","High supersaturation favoring nucleation over growth","Reduced viscosity limiting mass transfer to crystals","Increased temperature reducing nucleation frequency"], correctAnswer:"High supersaturation favoring nucleation over growth"},
+          { id:3, question:"A solution initially at equilibrium concentration of 80 g/L is evaporated until the solute concentration becomes 100 g/L. What is the relative supersaturation?", options:["0.20","0.22","0.25","0.28"], correctAnswer:"0.25"},
+          { id:4, question:"During crystallization, addition of an organic solvent results in rapid precipitation. The dominant effect is:", options:["Reduction in viscosity enhancing diffusion","Reduction in solubility increasing supersaturation","Increase in equilibrium concentration of solute","Increase in temperature reducing nucleation barrier"], correctAnswer:"Reduction in solubility increasing supersaturation"},
+          { id:5, question:"A nucleus exactly at critical radius is best described as:", options:["Stable and continues spontaneous growth","Unstable and immediately dissolves","Metastable and equally likely to grow or dissolve","Fully developed and independent of supersaturation"], correctAnswer:"Metastable and equally likely to grow or dissolve"},
+          { id:6, question:"A solution has a supersaturation ratio of 1.30 after cooling. What fraction exceeds equilibrium?", options:["0.23","0.27","0.30","0.33"], correctAnswer:"0.30"},
+          { id:7, question:"At elevated temperature, crystallization slows despite improved mass transfer. This occurs because:", options:["Supersaturation decreases despite lower viscosity","Viscosity dominates over thermodynamic driving force","Nucleation barrier increases due to diffusion limits","Crystal growth becomes independent of temperature"], correctAnswer:"Supersaturation decreases despite lower viscosity"},
+          { id:8, question:"A solution is seeded with crystals and shows immediate growth without delay. This suggests:", options:["Homogeneous nucleation dominates","Supersaturation too low","Heterogeneous nucleation bypasses barrier","Critical radius increases"], correctAnswer:"Heterogeneous nucleation bypasses barrier"},
+          { id:9, question:"A solution at 120 g/L is cooled where equilibrium is 100 g/L. What is S?", options:["1.18","1.20","1.22","1.25"], correctAnswer:"1.20"},
+          { id:10, question:"During hydrogen reduction precipitation, removal of H⁺ results in:", options:["Lower equilibrium constant","Shift to reactants","Shift to products increasing deposition","No change"], correctAnswer:"Shift to products increasing deposition"},
+          { id:11, question:"A system at pH 9 shows reduced metal yield due to:", options:["Increased solubility","Formation of hydroxides","Decreased nucleation","Gas solubility"], correctAnswer:"Formation of hydroxides"},
+          { id:12, question:"If log a(M²⁺) slope = −2 and pH increases 3→5, activity changes by:", options:["2","3","4","5"], correctAnswer:"4"},
+          { id:13, question:"Precipitation only after adding foreign surface indicates:", options:["High supersaturation suppressing nucleation","Homogeneous nucleation","Heterogeneous nucleation barrier","No critical nucleus"], correctAnswer:"Heterogeneous nucleation barrier"},
+          { id:14, question:"Concentration increases 90→108 g/L, equilibrium 90 g/L. σ?", options:["0.18","0.20","0.22","0.24"], correctAnswer:"0.20"},
+          { id:15, question:"Adding a common ion results in:", options:["Increased solubility","Decreased solubility and higher supersaturation","Higher nucleation barrier","No change"], correctAnswer:"Decreased solubility and higher supersaturation"}
+        ];
 
-  const questions = [
-    { id:1,type:"theory",question:"A supersaturated solution begins forming clusters, but most dissolve before stabilizing. This indicates that:",
-      options:["Most clusters remain below critical radius and redissolve","Most clusters exceed critical radius but lack stability","Supersaturation is insufficient to initiate nucleation","Crystal growth dominates before nucleation stabilizes"],
-      correctAnswer:"Most clusters remain below critical radius and redissolve"},
-    { id:2,type:"theory",question:"A system shows increasing nucleation rate but decreasing crystal size. This is most likely due to:",
-      options:["Slight decrease in supersaturation reducing growth rate","High supersaturation favoring nucleation over growth","Reduced viscosity limiting mass transfer","Increased temperature reducing nucleation"],
-      correctAnswer:"High supersaturation favoring nucleation over growth"},
-    { id:3,type:"calculation",question:"80 g/L → 100 g/L. Relative supersaturation?",
-      options:["0.20","0.22","0.25","0.28"],correctAnswer:"0.25"},
-    { id:4,type:"theory",question:"Organic solvent addition causes rapid precipitation due to:",
-      options:["Reduced viscosity","Reduced solubility increasing supersaturation","Increase in equilibrium concentration","Temperature rise"],
-      correctAnswer:"Reduced solubility increasing supersaturation"},
-    { id:5,type:"theory",question:"Critical nucleus is:",
-      options:["Stable","Unstable","Metastable","Fully developed"],
-      correctAnswer:"Metastable"},
-    { id:6,type:"calculation",question:"Supersaturation ratio 1.30. Fraction above equilibrium?",
-      options:["0.23","0.27","0.30","0.33"],correctAnswer:"0.30"},
-    { id:7,type:"theory",question:"High temperature slows crystallization because:",
-      options:["Supersaturation decreases","Viscosity dominates","Diffusion limits","Independent growth"],
-      correctAnswer:"Supersaturation decreases"},
-    { id:8,type:"theory",question:"Seeding causes immediate growth because:",
-      options:["Homogeneous nucleation","Low supersaturation","Heterogeneous nucleation bypasses barrier","Critical radius increases"],
-      correctAnswer:"Heterogeneous nucleation bypasses barrier"},
-    { id:9,type:"calculation",question:"120 g/L vs 100 g/L → S?",
-      options:["1.18","1.20","1.22","1.25"],correctAnswer:"1.20"},
-    { id:10,type:"theory",question:"Removing H⁺ causes:",
-      options:["Lower equilibrium","Shift to reactants","Shift to products","No change"],
-      correctAnswer:"Shift to products"},
-    { id:11,type:"theory",question:"Low yield at pH 9 due to:",
-      options:["Higher solubility","Hydroxide formation","Low nucleation","Gas solubility"],
-      correctAnswer:"Hydroxide formation"},
-    { id:12,type:"calculation",question:"Slope −2, pH 3→5 change?",
-      options:["2","3","4","5"],correctAnswer:"4"},
-    { id:13,type:"theory",question:"Needs surface to precipitate:",
-      options:["High supersaturation","Homogeneous","Heterogeneous barrier","No nucleus"],
-      correctAnswer:"Heterogeneous barrier"},
-    { id:14,type:"calculation",question:"90→108 g/L, σ?",
-      options:["0.18","0.20","0.22","0.24"],correctAnswer:"0.20"},
-    { id:15,type:"theory",question:"Common ion effect:",
-      options:["Increase solubility","Decrease solubility","Increase barrier","No change"],
-      correctAnswer:"Decrease solubility"},
-  ];
+        const ADMIN_PASSWORD = "admin123";
+        const TIME_PER_QUESTION = 20;
+        const TAB_SWITCH_PENALTY = 0.5;
 
-  const getTime = (q) => q.type === "calculation" ? 40 : 30;
+        const handleStartQuiz = async () => {
+          if (!studentName.trim() || !indexNumber.trim() || !groupNumber.trim()) {
+            alert("Please enter your name, index number, and group number");
+            return;
+          }
+          setView("quiz");
+          setQuestionTimeLeft(TIME_PER_QUESTION);
+        };
 
-  useEffect(() => {
-    if (view === "quiz" && questionTimeLeft > 0) {
-      const timer = setTimeout(() => setQuestionTimeLeft(q => q - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (questionTimeLeft === 0) nextQuestion();
-  }, [questionTimeLeft, view]);
+        if (view === "start") {
+          return (
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="bg-white p-8 rounded shadow w-full max-w-md">
+                <h1 className="text-2xl font-bold mb-4">METE 451 Quiz</h1>
 
-  const startQuiz = () => {
-    if (!studentName || !indexNumber || !groupNumber) {
-      alert("Fill all fields");
-      return;
-    }
-    setView("quiz");
-    setQuestionTimeLeft(getTime(questions[0]));
-  };
+                <input placeholder="Full Name" className="w-full mb-3 p-2 border"
+                  value={studentName} onChange={(e)=>setStudentName(e.target.value)} />
 
-  const nextQuestion = () => {
-    if (currentQuestion < questions.length - 1) {
-      const next = currentQuestion + 1;
-      setCurrentQuestion(next);
-      setQuestionTimeLeft(getTime(questions[next]));
-    } else {
-      setView("done");
-    }
-  };
+                <input placeholder="Index Number" className="w-full mb-3 p-2 border"
+                  value={indexNumber} onChange={(e)=>setIndexNumber(e.target.value)} />
 
-  const handleAnswer = (q, val) => {
-    setAnswers(prev => ({...prev,[q]:val}));
-  };
+                <select className="w-full mb-3 p-2 border"
+                  value={groupNumber} onChange={(e)=>setGroupNumber(e.target.value)}>
+                  <option value="">Select Group (1-17)</option>
+                  {[...Array(17)].map((_,i)=>(
+                    <option key={i+1} value={i+1}>Group {i+1}</option>
+                  ))}
+                </select>
 
-  if (view === "start") return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">METE 451 Quiz</h1>
+                <button onClick={handleStartQuiz} className="w-full bg-blue-600 text-white p-2 rounded">
+                  Start Quiz
+                </button>
+              </div>
+            </div>
+          );
+        }
 
-      <input placeholder="Name" className="border p-2 w-full mb-2"
-        onChange={e=>setStudentName(e.target.value)} />
+        const question = questions[currentQuestion];
 
-      <input placeholder="Index Number" className="border p-2 w-full mb-2"
-        onChange={e=>setIndexNumber(e.target.value)} />
+        return (
+          <div className="p-6 max-w-2xl mx-auto">
+            <h2 className="font-bold mb-4">{question.question}</h2>
+            {question.options.map((opt,i)=>(
+              <label key={i} className="block mb-2">
+                <input type="radio" name="q" onChange={()=>setAnswers({...answers,[question.id]:opt})}/>
+                {" "}{opt}
+              </label>
+            ))}
 
-      <select className="border p-2 w-full mb-4"
-        onChange={e=>setGroupNumber(e.target.value)}>
-        <option value="">Select Group</option>
-        {[...Array(17)].map((_,i)=>(
-          <option key={i+1}>Group {i+1}</option>
-        ))}
-      </select>
+            <button onClick={()=>{
+              if(currentQuestion<questions.length-1){
+                setCurrentQuestion(currentQuestion+1);
+              } else {
+                alert("Quiz Submitted");
+              }
+            }} className="mt-4 bg-green-600 text-white p-2 rounded">
+              Next
+            </button>
+          </div>
+        );
+      };
 
-      <button onClick={startQuiz} className="bg-blue-500 text-white p-2 w-full">
-        Start Quiz
-      </button>
-    </div>
-  );
-
-  if (view === "done") return (
-    <div className="p-6 text-center">
-      <h2 className="text-xl font-bold">Quiz Completed</h2>
-    </div>
-  );
-
-  const q = questions[currentQuestion];
-
-  return (
-    <div className="p-6 max-w-xl mx-auto">
-      <div className="mb-2 font-bold">
-        {studentName} ({indexNumber}) - {groupNumber}
-      </div>
-
-      <div className="text-red-500 text-lg mb-4">
-        Time: {questionTimeLeft}s
-      </div>
-
-      <h2 className="mb-4">{q.question}</h2>
-
-      {q.options.map((opt,i)=>(
-        <div key={i}>
-          <label>
-            <input type="radio"
-              name={q.id}
-              onChange={()=>handleAnswer(q.id,opt)} />
-            {opt}
-          </label>
-        </div>
-      ))}
-
-      <button onClick={nextQuestion}
-        className="mt-4 bg-green-500 text-white p-2">
-        Next
-      </button>
-    </div>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById("root")).render(<QuizApp />);
-</script>
-</body>
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<QuizApp />);
+    </script>
+  </body>
 </html>
