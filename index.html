@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>METE 451 Quiz</title>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const QuizApp = () => {
+
+  const [view, setView] = useState("start");
+  const [studentName, setStudentName] = useState("");
+  const [indexNumber, setIndexNumber] = useState("");
+  const [groupNumber, setGroupNumber] = useState("");
+
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [questionTimeLeft, setQuestionTimeLeft] = useState(30);
+
+  const questions = [
+    { id:1,type:"theory",question:"A supersaturated solution begins forming clusters, but most dissolve before stabilizing. This indicates that:",
+      options:["Most clusters remain below critical radius and redissolve","Most clusters exceed critical radius but lack stability","Supersaturation is insufficient to initiate nucleation","Crystal growth dominates before nucleation stabilizes"],
+      correctAnswer:"Most clusters remain below critical radius and redissolve"},
+    { id:2,type:"theory",question:"A system shows increasing nucleation rate but decreasing crystal size. This is most likely due to:",
+      options:["Slight decrease in supersaturation reducing growth rate","High supersaturation favoring nucleation over growth","Reduced viscosity limiting mass transfer","Increased temperature reducing nucleation"],
+      correctAnswer:"High supersaturation favoring nucleation over growth"},
+    { id:3,type:"calculation",question:"80 g/L → 100 g/L. Relative supersaturation?",
+      options:["0.20","0.22","0.25","0.28"],correctAnswer:"0.25"},
+    { id:4,type:"theory",question:"Organic solvent addition causes rapid precipitation due to:",
+      options:["Reduced viscosity","Reduced solubility increasing supersaturation","Increase in equilibrium concentration","Temperature rise"],
+      correctAnswer:"Reduced solubility increasing supersaturation"},
+    { id:5,type:"theory",question:"Critical nucleus is:",
+      options:["Stable","Unstable","Metastable","Fully developed"],
+      correctAnswer:"Metastable"},
+    { id:6,type:"calculation",question:"Supersaturation ratio 1.30. Fraction above equilibrium?",
+      options:["0.23","0.27","0.30","0.33"],correctAnswer:"0.30"},
+    { id:7,type:"theory",question:"High temperature slows crystallization because:",
+      options:["Supersaturation decreases","Viscosity dominates","Diffusion limits","Independent growth"],
+      correctAnswer:"Supersaturation decreases"},
+    { id:8,type:"theory",question:"Seeding causes immediate growth because:",
+      options:["Homogeneous nucleation","Low supersaturation","Heterogeneous nucleation bypasses barrier","Critical radius increases"],
+      correctAnswer:"Heterogeneous nucleation bypasses barrier"},
+    { id:9,type:"calculation",question:"120 g/L vs 100 g/L → S?",
+      options:["1.18","1.20","1.22","1.25"],correctAnswer:"1.20"},
+    { id:10,type:"theory",question:"Removing H⁺ causes:",
+      options:["Lower equilibrium","Shift to reactants","Shift to products","No change"],
+      correctAnswer:"Shift to products"},
+    { id:11,type:"theory",question:"Low yield at pH 9 due to:",
+      options:["Higher solubility","Hydroxide formation","Low nucleation","Gas solubility"],
+      correctAnswer:"Hydroxide formation"},
+    { id:12,type:"calculation",question:"Slope −2, pH 3→5 change?",
+      options:["2","3","4","5"],correctAnswer:"4"},
+    { id:13,type:"theory",question:"Needs surface to precipitate:",
+      options:["High supersaturation","Homogeneous","Heterogeneous barrier","No nucleus"],
+      correctAnswer:"Heterogeneous barrier"},
+    { id:14,type:"calculation",question:"90→108 g/L, σ?",
+      options:["0.18","0.20","0.22","0.24"],correctAnswer:"0.20"},
+    { id:15,type:"theory",question:"Common ion effect:",
+      options:["Increase solubility","Decrease solubility","Increase barrier","No change"],
+      correctAnswer:"Decrease solubility"},
+  ];
+
+  const getTime = (q) => q.type === "calculation" ? 40 : 30;
+
+  useEffect(() => {
+    if (view === "quiz" && questionTimeLeft > 0) {
+      const timer = setTimeout(() => setQuestionTimeLeft(q => q - 1), 1000);
+      return () => clearTimeout(timer);
+    } else if (questionTimeLeft === 0) nextQuestion();
+  }, [questionTimeLeft, view]);
+
+  const startQuiz = () => {
+    if (!studentName || !indexNumber || !groupNumber) {
+      alert("Fill all fields");
+      return;
+    }
+    setView("quiz");
+    setQuestionTimeLeft(getTime(questions[0]));
+  };
+
+  const nextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      const next = currentQuestion + 1;
+      setCurrentQuestion(next);
+      setQuestionTimeLeft(getTime(questions[next]));
+    } else {
+      setView("done");
+    }
+  };
+
+  const handleAnswer = (q, val) => {
+    setAnswers(prev => ({...prev,[q]:val}));
+  };
+
+  if (view === "start") return (
+    <div className="p-6 max-w-md mx-auto">
+      <h1 className="text-xl font-bold mb-4">METE 451 Quiz</h1>
+
+      <input placeholder="Name" className="border p-2 w-full mb-2"
+        onChange={e=>setStudentName(e.target.value)} />
+
+      <input placeholder="Index Number" className="border p-2 w-full mb-2"
+        onChange={e=>setIndexNumber(e.target.value)} />
+
+      <select className="border p-2 w-full mb-4"
+        onChange={e=>setGroupNumber(e.target.value)}>
+        <option value="">Select Group</option>
+        {[...Array(17)].map((_,i)=>(
+          <option key={i+1}>Group {i+1}</option>
+        ))}
+      </select>
+
+      <button onClick={startQuiz} className="bg-blue-500 text-white p-2 w-full">
+        Start Quiz
+      </button>
+    </div>
+  );
+
+  if (view === "done") return (
+    <div className="p-6 text-center">
+      <h2 className="text-xl font-bold">Quiz Completed</h2>
+    </div>
+  );
+
+  const q = questions[currentQuestion];
+
+  return (
+    <div className="p-6 max-w-xl mx-auto">
+      <div className="mb-2 font-bold">
+        {studentName} ({indexNumber}) - {groupNumber}
+      </div>
+
+      <div className="text-red-500 text-lg mb-4">
+        Time: {questionTimeLeft}s
+      </div>
+
+      <h2 className="mb-4">{q.question}</h2>
+
+      {q.options.map((opt,i)=>(
+        <div key={i}>
+          <label>
+            <input type="radio"
+              name={q.id}
+              onChange={()=>handleAnswer(q.id,opt)} />
+            {opt}
+          </label>
+        </div>
+      ))}
+
+      <button onClick={nextQuestion}
+        className="mt-4 bg-green-500 text-white p-2">
+        Next
+      </button>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<QuizApp />);
+</script>
+</body>
+</html>
