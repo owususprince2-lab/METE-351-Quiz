@@ -48,9 +48,10 @@
         const [view, setView] = useState("start");
         const [studentName, setStudentName] = useState("");
         const [indexNumber, setIndexNumber] = useState("");
+        const [selectedGroup, setSelectedGroup] = useState("");
         const [currentQuestion, setCurrentQuestion] = useState(0);
         const [answers, setAnswers] = useState({});
-        const [questionTimeLeft, setQuestionTimeLeft] = useState(100);
+        const [questionTimeLeft, setQuestionTimeLeft] = useState(30);
         const [tabSwitches, setTabSwitches] = useState(0);
         const [quizSubmitted, setQuizSubmitted] = useState(false);
         const [adminPassword, setAdminPassword] = useState("");
@@ -59,248 +60,228 @@
         const questions = [
           {
             id: 1,
-            type: "mcq",
-            question: "Ion exchange selectivity reversal under increasing ionic strength is best explained by:",
+            question: "In precipitation governed by solubility equilibria, the condition for solid formation is best described as:",
             options: [
-              "reduction in activity coefficient differences between competing ions",
-              "increase in electrostatic attraction between resin and counter-ions",
-              "collapse of Donnan potential across the resin phase",
-              "enhancement of boundary layer diffusion resistance",
+              "a. log Q ≥ log Ksp under dynamic equilibrium",
+              "b. log Q > log Ksp prior to equilibrium attainment",
+              "c. log Q = log Ksp during nucleation",
+              "d. log Q < log Ksp when supersaturation exists",
             ],
-            correctAnswer: "reduction in activity coefficient differences between competing ions",
+            correctAnswer: "b. log Q > log Ksp prior to equilibrium attainment",
           },
           {
             id: 2,
-            type: "mcq",
-            question: "For two competing monovalent ions A⁺ and B⁺, identical in charge but different hydration energies, selectivity is dominated when:",
+            question: "Increasing supersaturation by decreasing solubility (Ksp) while keeping Q constant most directly leads to:",
             options: [
-              "ΔG_hydration ≫ ΔG_resin interaction",
-              "ΔG_resin interaction ≫ ΔG_hydration",
-              "diffusivity difference exceeds charge density effects",
-              "pore diffusion resistance exceeds film diffusion",
+              "a. Precipitation driven by ionic addition",
+              "b. Crystallization induced by thermal variation",
+              "c. Homogeneous nucleation without energy barrier",
+              "d. Heterogeneous growth independent of nuclei",
             ],
-            correctAnswer: "ΔG_hydration ≫ ΔG_resin interaction",
+            correctAnswer: "b. Crystallization induced by thermal variation",
           },
           {
             id: 3,
-            type: "mcq",
-            question: "A sharp breakthrough curve with minimal mass transfer zone indicates:",
+            question: "A system in the \"red/purple\" region of the solubility curve is characterized by:",
             options: [
-              "dominance of film diffusion resistance",
-              "equilibrium-controlled sorption with negligible axial dispersion",
-              "significant internal pore diffusion limitation",
-              "resin saturation prior to column equilibrium",
+              "a. Immediate spontaneous crystallization without external input",
+              "b. Supersaturation with possible nucleation dependence",
+              "c. Undersaturation with no crystal growth",
+              "d. Equilibrium between dissolution and precipitation",
             ],
-            correctAnswer: "equilibrium-controlled sorption with negligible axial dispersion",
+            correctAnswer: "b. Supersaturation with possible nucleation dependence",
           },
           {
             id: 4,
-            type: "mcq",
-            question: "Increasing cross-linking in a resin most directly results in:",
+            question: "Which statement most precisely describes excessive driving force in crystallization?",
             options: [
-              "increased capacity and increased diffusion rate",
-              "decreased swelling and reduced intraparticle diffusion",
-              "increased porosity and enhanced ion mobility",
-              "decreased selectivity due to steric hindrance",
+              "a. Enhances lattice perfection through slow growth",
+              "b. Promotes selective impurity rejection",
+              "c. Increases defect incorporation within crystals",
+              "d. Prevents nucleation entirely",
             ],
-            correctAnswer: "decreased swelling and reduced intraparticle diffusion",
+            correctAnswer: "c. Increases defect incorporation within crystals",
           },
           {
             id: 5,
-            type: "mcq",
-            question: "The Donnan equilibrium becomes negligible when:",
+            question: "The critical nucleus radius is associated with:",
             options: [
-              "resin phase ionic strength ≈ external solution ionic strength",
-              "counter-ion valency increases",
-              "resin functional group density increases",
-              "temperature increases significantly",
+              "a. Minimum entropy condition for dissolution",
+              "b. Maximum solubility condition",
+              "c. Energy barrier determining nucleus stability",
+              "d. Complete absence of kinetic effects",
             ],
-            correctAnswer: "resin phase ionic strength ≈ external solution ionic strength",
+            correctAnswer: "c. Energy barrier determining nucleus stability",
           },
           {
             id: 6,
-            type: "mcq",
-            question: "At very high flow rates, ion exchange efficiency drops primarily due to:",
+            question: "In precipitation using hydrogen gas, the slope of log aM²⁺ vs pH is:",
             options: [
-              "reduced equilibrium constant",
-              "insufficient residence time relative to mass transfer rate",
-              "collapse of resin structure",
-              "reduced ion concentration gradient",
+              "a. −1",
+              "b. +1",
+              "c. +2",
+              "d. −2",
             ],
-            correctAnswer: "insufficient residence time relative to mass transfer rate",
+            correctAnswer: "c. +2",
           },
           {
             id: 7,
-            type: "mcq",
-            question: "If two ions have identical charge and hydrated radius, selectivity differences arise mainly from:",
+            question: "Removal of H⁺ ions during precipitation primarily:",
             options: [
-              "differences in polarizability and specific interaction",
-              "differences in bulk diffusion coefficients",
-              "differences in external film thickness",
-              "differences in resin pore size",
+              "a. Decreases metal deposition rate",
+              "b. Shifts equilibrium toward dissolution",
+              "c. Enhances metal recovery at equilibrium",
+              "d. Eliminates need for reducing agents",
             ],
-            correctAnswer: "differences in polarizability and specific interaction",
+            correctAnswer: "c. Enhances metal recovery at equilibrium",
           },
           {
             id: 8,
-            type: "mcq",
-            question: "The controlling resistance shifts from film diffusion to pore diffusion when:",
+            question: "Complexing agents in precipitation are most effective when they:",
             options: [
-              "particle size decreases significantly",
-              "agitation intensity increases significantly",
-              "resin particle size increases significantly",
-              "solution viscosity decreases significantly",
+              "a. Completely prevent metal ion release",
+              "b. Moderately stabilize ions without inhibiting reduction",
+              "c. Strongly bind ions to prevent precipitation",
+              "d. Increase pH beyond hydroxide precipitation range",
             ],
-            correctAnswer: "resin particle size increases significantly",
+            correctAnswer: "b. Moderately stabilize ions without inhibiting reduction",
           },
           {
             id: 9,
-            type: "mcq",
-            question: "A highly dispersed breakthrough front suggests:",
+            question: "Leaching is best defined as:",
             options: [
-              "equilibrium-limited sorption",
-              "strong axial dispersion and non-uniform flow",
-              "negligible diffusion resistance",
-              "instantaneous ion exchange",
+              "a. Dissolution of entire ore matrix",
+              "b. Non-selective dissolution of all minerals",
+              "c. Selective dissolution of valuable component",
+              "d. Chemical breakdown without solution formation",
             ],
-            correctAnswer: "strong axial dispersion and non-uniform flow",
+            correctAnswer: "c. Selective dissolution of valuable component",
           },
           {
             id: 10,
-            type: "mcq",
-            question: "In mixed-bed ion exchange, performance improvement is primarily due to:",
+            question: "A leaching system becomes economically unviable when:",
             options: [
-              "independent parallel exchange mechanisms",
-              "reduction in diffusion path length between cation and anion exchange",
-              "increase in resin capacity",
-              "elimination of equilibrium limitations",
+              "a. Metal is highly soluble",
+              "b. Impurities are separable",
+              "c. Gangue consumes excessive reagent",
+              "d. Pregnant solution is recyclable",
             ],
-            correctAnswer: "reduction in diffusion path length between cation and anion exchange",
+            correctAnswer: "c. Gangue consumes excessive reagent",
           },
           {
             id: 11,
-            type: "mcq",
-            question: "The persistence of Si–O–Al phase despite high NaOH concentration indicates:",
+            question: "The rate-controlling step in leaching is:",
             options: [
-              "thermodynamic limitation dominates over kinetics",
-              "interfacial reaction barrier exceeds bulk dissolution rate",
-              "aluminum solubility limit is reached",
-              "silicon dissolution is faster than aluminum",
+              "a. Always chemical reaction",
+              "b. Always diffusion through bulk solution",
+              "c. The slowest among diffusion or reaction steps",
+              "d. Independent of boundary layer effects",
             ],
-            correctAnswer: "interfacial reaction barrier exceeds bulk dissolution rate",
+            correctAnswer: "c. The slowest among diffusion or reaction steps",
           },
           {
             id: 12,
-            type: "mcq",
-            question: "Increasing NaOH concentration beyond optimal point leads to higher silicon loss because:",
+            question: "Which condition most favors diffusion-controlled leaching?",
             options: [
-              "silicon dissolution rate becomes kinetically favorable",
-              "aluminum dissolution reaches equilibrium",
-              "diffusion resistance dominates",
-              "aluminum forms passive layers",
+              "a. High reaction kinetics with slow mass transfer",
+              "b. Fast diffusion with slow surface reaction",
+              "c. Equal rates of reaction and diffusion",
+              "d. Absence of boundary layer",
             ],
-            correctAnswer: "silicon dissolution rate becomes kinetically favorable",
+            correctAnswer: "a. High reaction kinetics with slow mass transfer",
           },
           {
             id: 13,
-            type: "mcq",
-            question: "The difference in leaching behavior between Al-BSF and PERC cells is mainly due to:",
+            question: "An ideal lixiviant must satisfy all EXCEPT:",
             options: [
-              "variation in bulk silicon purity",
-              "differences in aluminum–silicon interfacial bonding geometry",
-              "variation in NaOH concentration",
-              "differences in external mass transfer",
+              "a. High selectivity",
+              "b. Chemical instability",
+              "c. Regenerability",
+              "d. Low toxicity",
             ],
-            correctAnswer: "differences in aluminum–silicon interfacial bonding geometry",
+            correctAnswer: "b. Chemical instability",
           },
           {
             id: 14,
-            type: "mcq",
-            question: "A decrease in leaching efficiency at extended time (>10 min) is best attributed to:",
+            question: "Water acts as a lixiviant primarily because:",
             options: [
-              "depletion of aluminum driving force",
-              "increased diffusion resistance through residual layer",
-              "reduction in NaOH activity",
-              "equilibrium reversal",
+              "a. It is non-polar",
+              "b. It lacks intermolecular forces",
+              "c. It is polar with ion accommodation ability",
+              "d. It prevents ion diffusion",
             ],
-            correctAnswer: "increased diffusion resistance through residual layer",
+            correctAnswer: "c. It is polar with ion accommodation ability",
           },
           {
             id: 15,
-            type: "mcq",
-            question: "A wafer initially contains 2.0 g Al. After leaching, 97.5% is removed. If silicon loss corresponds to 0.08 g per gram Al leached, total silicon loss is:",
+            question: "In in-situ leaching, a critical geological requirement is:",
             options: [
-              "0.152 g",
-              "0.156 g",
-              "0.160 g",
-              "0.164 g",
+              "a. Impermeable ore body throughout",
+              "b. Completely exposed ore at surface",
+              "c. Permeable ore bounded by impermeable layers",
+              "d. Uniformly fractured ore without confinement",
             ],
-            correctAnswer: "0.156 g",
+            correctAnswer: "c. Permeable ore bounded by impermeable layers",
           },
           {
             id: 16,
-            type: "mcq",
-            question: "If leaching rate follows first-order kinetics and 90% Al is removed in 6 min, time required for 97.5% removal is:",
+            question: "Dump leaching differs from heap leaching mainly in:",
             options: [
-              "8.2 min",
-              "9.0 min",
-              "9.8 min",
-              "10.4 min",
+              "a. Use of lixiviants",
+              "b. Degree of ore comminution",
+              "c. Chemical reactions involved",
+              "d. Metal recovery mechanisms",
             ],
-            correctAnswer: "9.8 min",
+            correctAnswer: "b. Degree of ore comminution",
           },
           {
             id: 17,
-            type: "mcq",
-            question: "For a process where silicon loss rate doubles with every 10°C increase, raising temperature from 25°C to 45°C increases loss by:",
+            question: "Heap leaching permeability issues are MOST likely caused by:",
             options: [
-              "2×",
-              "3×",
-              "4×",
-              "5×",
+              "a. Excess coarse particles",
+              "b. High oxygen availability",
+              "c. Precipitate formation and fines migration",
+              "d. Low lixiviant concentration",
             ],
-            correctAnswer: "4×",
+            correctAnswer: "c. Precipitate formation and fines migration",
           },
           {
             id: 18,
-            type: "mcq",
-            question: "Residual aluminum fraction after two identical leaching stages each removing 80% is:",
+            question: "Agglomeration in heap leaching primarily aims to:",
             options: [
-              "2%",
-              "3.6%",
-              "4%",
-              "6.4%",
+              "a. Reduce reaction kinetics",
+              "b. Increase permeability and uniform flow",
+              "c. Decrease particle size distribution",
+              "d. Eliminate need for binders",
             ],
-            correctAnswer: "4%",
+            correctAnswer: "b. Increase permeability and uniform flow",
           },
           {
             id: 19,
-            type: "mcq",
-            question: "If diffusion layer thickness doubles, leaching rate approximately:",
+            question: "Pressure leaching is most suitable when:",
             options: [
-              "halves",
-              "reduces by 25%",
-              "remains constant",
-              "doubles",
+              "a. Ore is low grade and highly permeable",
+              "b. Kinetics are slow at ambient conditions",
+              "c. Diffusion dominates at low temperature",
+              "d. Reaction is independent of temperature",
             ],
-            correctAnswer: "halves",
+            correctAnswer: "b. Kinetics are slow at ambient conditions",
           },
           {
             id: 20,
-            type: "mcq",
-            question: "If activation energy is high, temperature sensitivity of leaching is:",
+            question: "Bioleaching by autotrophic bacteria occurs mainly through:",
             options: [
-              "weakly dependent",
-              "inversely dependent",
-              "exponentially dependent",
-              "linearly dependent",
+              "a. Direct metal dissolution via organic acids",
+              "b. Oxidation of inorganic compounds generating leaching agents",
+              "c. Reduction of metal ions in solution",
+              "d. Physical breakdown of ore particles",
             ],
-            correctAnswer: "exponentially dependent",
+            correctAnswer: "b. Oxidation of inorganic compounds generating leaching agents",
           },
         ];
 
         const ADMIN_PASSWORD = "admin123";
-        const TIME_PER_QUESTION = 25;
+        const TIME_PER_QUESTION = 30;
         const TAB_SWITCH_PENALTY = 0.5;
 
         useEffect(() => {
@@ -352,6 +333,10 @@
             alert("Please enter your name and index number");
             return;
           }
+          if (!selectedGroup) {
+            alert("Please select your group");
+            return;
+          }
           const startButton = document.querySelector("button");
           if (startButton) startButton.disabled = true;
           try {
@@ -394,6 +379,7 @@
           const percentage = ((finalScore / totalQuestions) * 100).toFixed(1);
           const result = {
             studentName, indexNumber,
+            group: selectedGroup,
             department: "metallurgical",
             sheet: "Sheet1",
             rawScore, tabSwitches, tabPenalty, finalScore, totalQuestions, percentage,
@@ -458,7 +444,7 @@
               <div className="max-w-7xl mx-auto">
                 <div className="bg-white rounded-lg shadow-md p-6 mb-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold">Admin Dashboard - METE 451 Quiz</h2>
+                    <h2 className="text-2xl font-bold">Admin Dashboard - METE 351 Quiz</h2>
                     <div className="flex gap-2">
                       <button onClick={() => loadResultsFromSheets()} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Refresh</button>
                       <button onClick={() => setView("start")} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Exit Admin</button>
@@ -467,11 +453,11 @@
                   {loading ? (
                     <p>Loading results from Google Sheets...</p>
                   ) : results.length === 0 ? (
-                    <p className="text-gray-500">No quiz submissions yet for Metallurgical Engineering.</p>
+                    <p className="text-gray-500">No quiz submissions yet.</p>
                   ) : (
                     <>
                       <div className="mb-4">
-                        <p className="text-lg font-semibold text-gray-700">Metallurgical Engineering — Ion Exchange & Leaching Quiz</p>
+                        <p className="text-lg font-semibold text-gray-700">Metallurgical Engineering — Precipitation, Crystallization & Leaching Quiz</p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <div className="bg-blue-50 rounded-lg p-4">
@@ -498,7 +484,7 @@
                         <table className="min-w-full divide-y divide-gray-200">
                           <thead className="bg-gray-50">
                             <tr>
-                              {["#","Name","Index Number","Raw Score","Tab Switches","Penalty","Final Score","Percentage","Timestamp"].map(h => (
+                              {["#","Name","Index Number","Group","Raw Score","Tab Switches","Penalty","Final Score","Percentage","Timestamp"].map(h => (
                                 <th key={h} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{h}</th>
                               ))}
                             </tr>
@@ -509,6 +495,9 @@
                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-gray-600">{idx + 1}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">{result.studentName}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">{result.indexNumber}</td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  <span className="px-2 py-1 rounded bg-indigo-100 text-indigo-800 text-xs font-semibold">{result.group || "—"}</span>
+                                </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold">{result.rawScore}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">{result.tabSwitches}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm text-red-600">{result.tabPenalty}</td>
@@ -538,9 +527,9 @@
                 <div className="bg-white rounded-lg shadow-xl p-8">
                   <div className="text-center mb-6">
                     <Lock className="mx-auto h-12 w-12 text-indigo-600 mb-3" />
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">METE 451 Quiz</h1>
+                    <h1 className="text-3xl font-bold text-gray-800 mb-2">METE 351 Quiz</h1>
                     <p className="text-gray-600">Metallurgical Engineering</p>
-                    <p className="text-sm text-gray-500 mt-1">Ion Exchange & Leaching / PV Cell</p>
+                    <p className="text-sm text-gray-500 mt-1">Precipitation, Crystallization & Leaching</p>
                   </div>
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
                     <div className="flex">
@@ -549,7 +538,7 @@
                         <p className="font-semibold mb-1">Quiz Rules:</p>
                         <ul className="list-disc list-inside space-y-1">
                           <li>20 questions total</li>
-                          <li>25 seconds per question</li>
+                          <li>30 seconds per question</li>
                           <li>Auto-advances when time expires</li>
                           <li>Tab switching: -0.5 points each</li>
                           <li>Text selection disabled</li>
@@ -570,6 +559,28 @@
                       <input type="text" value={indexNumber} onChange={(e) => setIndexNumber(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="Enter your index number" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Select Your Group</label>
+                      <div className="grid grid-cols-5 gap-2">
+                        {Array.from({ length: 17 }, (_, i) => i + 1).map((g) => (
+                          <button
+                            key={g}
+                            type="button"
+                            onClick={() => setSelectedGroup(`Group ${g}`)}
+                            className={`py-2 rounded-lg text-sm font-semibold border-2 transition duration-150 ${
+                              selectedGroup === `Group ${g}`
+                                ? "bg-indigo-600 border-indigo-600 text-white"
+                                : "bg-white border-gray-300 text-gray-700 hover:border-indigo-400 hover:bg-indigo-50"
+                            }`}
+                          >
+                            {g}
+                          </button>
+                        ))}
+                      </div>
+                      {selectedGroup && (
+                        <p className="text-xs text-indigo-600 font-semibold mt-1">Selected: {selectedGroup}</p>
+                      )}
                     </div>
                     <button onClick={handleStartQuiz} className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200">
                       Start Quiz
@@ -600,7 +611,8 @@
                   <div className="text-center">
                     <CheckCircle className="mx-auto h-16 w-16 text-green-500 mb-4" />
                     <h2 className="text-3xl font-bold text-gray-800 mb-2">Quiz Submitted Successfully!</h2>
-                    <p className="text-gray-600 mb-6">Thank you, {studentName}</p>
+                    <p className="text-gray-600 mb-2">Thank you, {studentName}</p>
+                    <p className="text-sm text-indigo-600 font-semibold mb-6">{selectedGroup}</p>
                     <div className="bg-blue-50 rounded-lg p-6 mb-6">
                       <p className="text-gray-700 text-lg">Your responses have been recorded and submitted to your instructor.</p>
                     </div>
@@ -615,6 +627,7 @@
 
         const question = questions[currentQuestion];
         const progress = ((currentQuestion + 1) / questions.length) * 100;
+        const timerPercent = (questionTimeLeft / TIME_PER_QUESTION) * 100;
 
         const handleNext = () => {
           if (currentQuestion < questions.length - 1) {
@@ -628,49 +641,98 @@
         return (
           <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
             <div className="max-w-3xl mx-auto">
+              {/* Header bar */}
               <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <div className="flex items-center space-x-4">
+                <div className="flex justify-between items-center mb-3">
+                  <div className="flex items-center space-x-3">
                     <span className="text-sm font-semibold text-gray-700">{studentName} ({indexNumber})</span>
-                    <span className="text-xs px-2 py-1 bg-indigo-100 text-indigo-800 rounded">Metallurgical Engineering</span>
+                    <span className="text-xs px-2 py-1 bg-indigo-100 text-indigo-800 rounded">METE 351</span>
+                    <span className="text-xs px-2 py-1 bg-purple-100 text-purple-800 rounded font-semibold">{selectedGroup}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     {tabSwitches > 0 && (
                       <span className="text-sm text-red-600 font-semibold">⚠️ Switches: {tabSwitches} (-{(tabSwitches * TAB_SWITCH_PENALTY).toFixed(1)})</span>
                     )}
                     <div className="flex items-center space-x-2">
-                      <Timer className={`h-5 w-5 ${questionTimeLeft <= 5 ? "text-red-600" : "text-indigo-600"}`} />
-                      <span className={`font-mono font-bold text-xl ${questionTimeLeft <= 5 ? "text-red-600 animate-pulse" : "text-gray-700"}`}>
+                      <Timer className={`h-5 w-5 ${questionTimeLeft <= 8 ? "text-red-600" : questionTimeLeft <= 15 ? "text-orange-500" : "text-indigo-600"}`} />
+                      <span className={`font-mono font-bold text-2xl ${questionTimeLeft <= 8 ? "text-red-600 animate-pulse" : questionTimeLeft <= 15 ? "text-orange-500" : "text-gray-700"}`}>
                         {questionTimeLeft}s
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Question {currentQuestion + 1} of {questions.length}</span>
+                {/* Timer progress bar */}
+                <div className="w-full bg-gray-200 rounded-full h-1.5 mb-2">
+                  <div
+                    className={`h-1.5 rounded-full transition-all duration-1000 ${questionTimeLeft <= 8 ? "bg-red-500" : questionTimeLeft <= 15 ? "bg-orange-400" : "bg-indigo-600"}`}
+                    style={{ width: `${timerPercent}%` }}
+                  />
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="flex justify-between text-sm text-gray-500">
+                  <span>Question {currentQuestion + 1} of {questions.length}</span>
+                  <span>{Math.round(progress)}% complete</span>
+                </div>
+                {/* Progress bar */}
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
                   <div className="bg-indigo-600 h-2 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
                 </div>
               </div>
 
+              {/* Question card */}
               <div className="bg-white rounded-lg shadow-md p-8">
-                <h2 className="text-lg font-bold text-gray-800 mb-6 leading-relaxed">{question.question}</h2>
-                <div className="space-y-3">
-                  {question.options.map((option, idx) => (
-                    <label key={idx} className="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-indigo-400 hover:bg-indigo-50 transition duration-200">
-                      <input type="radio" name={`question-${question.id}`} value={option}
-                        checked={answers[question.id] === option}
-                        onChange={(e) => handleAnswerChange(question.id, e.target.value)}
-                        className="mt-1 mr-3 h-4 w-4 text-indigo-600 flex-shrink-0" />
-                      <span className="text-gray-700">{option}</span>
-                    </label>
-                  ))}
+                <div className="flex items-start mb-6">
+                  <span className="flex-shrink-0 bg-indigo-600 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center mr-4 mt-0.5">
+                    {currentQuestion + 1}
+                  </span>
+                  <h2 className="text-lg font-bold text-gray-800 leading-relaxed">{question.question}</h2>
                 </div>
-                <div className="flex justify-end mt-8">
-                  <button onClick={handleNext}
-                    className={`px-8 py-3 rounded-lg font-semibold ${currentQuestion === questions.length - 1 ? "bg-green-600 hover:bg-green-700" : "bg-indigo-600 hover:bg-indigo-700"} text-white`}>
-                    {currentQuestion === questions.length - 1 ? "Submit Quiz" : "Next Question"}
+
+                <div className="space-y-3">
+                  {question.options.map((option, idx) => {
+                    const isSelected = answers[question.id] === option;
+                    return (
+                      <label
+                        key={idx}
+                        className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition duration-200 ${
+                          isSelected
+                            ? "border-indigo-500 bg-indigo-50"
+                            : "border-gray-200 hover:border-indigo-400 hover:bg-indigo-50"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name={`question-${question.id}`}
+                          value={option}
+                          checked={isSelected}
+                          onChange={(e) => handleAnswerChange(question.id, e.target.value)}
+                          className="sr-only"
+                        />
+                        <span className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mr-3 mt-0.5 text-xs font-bold transition-colors ${
+                          isSelected ? "bg-indigo-600 border-indigo-600 text-white" : "border-gray-400 text-gray-500"
+                        }`}>
+                          {['A','B','C','D'][idx]}
+                        </span>
+                        <span className={`text-base ${isSelected ? "text-indigo-900 font-semibold" : "text-gray-700"}`}>
+                          {option.substring(3)}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                <div className="flex justify-between items-center mt-8">
+                  <span className="text-sm text-gray-400">
+                    {answers[question.id] ? "✓ Answer selected" : "No answer selected"}
+                  </span>
+                  <button
+                    onClick={handleNext}
+                    className={`px-8 py-3 rounded-lg font-semibold transition duration-200 ${
+                      currentQuestion === questions.length - 1
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-indigo-600 hover:bg-indigo-700"
+                    } text-white`}
+                  >
+                    {currentQuestion === questions.length - 1 ? "Submit Quiz" : "Next →"}
                   </button>
                 </div>
               </div>
